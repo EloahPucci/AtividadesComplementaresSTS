@@ -1,7 +1,6 @@
 package com.eloahpucci.atividadeComplementarSTS.domain;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 public class LancamentoAtividade {
@@ -14,13 +13,15 @@ public class LancamentoAtividade {
 	private Atividade atividade;
 	
 	public String getSemestreAtividade() {
-		LocalDate localDateDataFim = dataFim.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		if(localDateDataFim.getMonthValue() < 6) {
-			return localDateDataFim.getYear() + "-1";
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(dataFim);
+		int ano = calendar.get(Calendar.YEAR);
+		int mes = calendar.get(Calendar.MONTH);
+		if (mes > 5) {
+			return ano+"-2";
+		} else {
+			return ano+"-1";
 		}
-		
-		return localDateDataFim.getYear() + "-2";
 	}
 	
 	/**public Integer getHorasAproveitadas() {
